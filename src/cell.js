@@ -17,14 +17,15 @@ var Cell = React.createClass({
     },
 
     render() {
+        var wallOpacity = this.props.wallOpacity;
         var style = {
             width:16,
             height:16,
             position: 'absolute',
-            border: '1px solid #ddd',
+            border: (this.props.showBorders) ? '1px solid rgba(0,0,0,0.3)' : 0,
             left: (this.props.x * 16),
             top: (this.props.y * 16),
-            background: (this.state.isFree) ? "#FFF" : "#333"
+            background: (this.state.isFree) ? "rgba(255,255,255,0)" : "rgba(0,0,0,"+wallOpacity+")"
         }
 
         return (

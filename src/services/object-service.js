@@ -1,14 +1,34 @@
+var initialMapData = {
+    id: "sample-dangercrew-map-001",
+    title: "Drew's First Map",
+    backgroundImage: "1.png",
+    width: 20,
+    height: 17,
+    cells: [
+
+    ]
+}
+
+
+
 var ObjectService = function() {
     return {
 
-        objects: [],
+        map: initialMapData,
 
         get() {
-            return this.objects
+            return this.map
         },
-        set() {
-
-        }
+        set: function(id,x,y, type, action) {
+            var self = this;
+            self.objects.push({
+                id:id,
+                x:x,
+                y:y,
+                type: type,
+                action: action || null
+            })
+    }
     }
 }
 
