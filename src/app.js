@@ -24,6 +24,7 @@ var RootComponent = React.createClass({
         return (
             <div>
                 <MenuBar adjustMapDimensions={this.adjustMapDimensions} />
+                <input placeholder="title" />
                 <Canvas mapLength={this.state.mapWidth} mapHeight={this.state.mapHeight} />
             </div>
         );

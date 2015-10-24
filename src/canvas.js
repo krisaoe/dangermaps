@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './cell';
+import ObjectService from './services/object-service';
 
 var Canvas = React.createClass({
 
@@ -8,8 +9,9 @@ var Canvas = React.createClass({
         var self = this;
         for (var i=0; i<self.props.mapHeight; i++) {
             for (var ii=0; ii<self.props.mapLength; ii++) {
+                var key = ii + "-" + i;
                 cells.push(
-                    <Cell y={i} x={ii} />
+                    <Cell key={key} y={i} x={ii} />
                 )
             }
         }

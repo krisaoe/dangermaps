@@ -11,11 +11,14 @@ var MenuBar = React.createClass({
     render() {
         return (
             <div style={style}>
-                <div>
+                <div className="ibm">
                     <form onChange={this.handleDimensionsChange}>
                         <input ref="widthInput" type="number" min="0" defaultValue={10} />
                         <input ref="heightInput" type="number" min="0" defaultValue={6}  />
                     </form>
+                </div>
+                <div className="ibm right">
+                    <button>EXPORT</button>
                 </div>
             </div>
         );
