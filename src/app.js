@@ -1,29 +1,33 @@
 import React from 'react';
 import './style/interface.styl';
 import MenuBar from './menu-bar';
-import Cell from './menu-bar';
+import Canvas from './canvas';
 
-class RootComponent extends React.Component {
+var RootComponent = React.createClass({
+
 
     getInitialState() {
         return {
-            mapLength: 50, /* in cells */
-            mapHeight: 20 /* in cells */
+            mapWidth: 10,
+            mapHeight: 6
         }
-    }
+    },
 
-    renderCells() {
-
-    }
+    adjustMapDimensions(width, height) {
+        this.setState({
+            mapWidth: width,
+            mapHeight: height
+        })
+    },
 
     render() {
         return (
             <div>
-                <MenuBar />
-                {renderCells()}
+                <MenuBar adjustMapDimensions={this.adjustMapDimensions} />
+                <Canvas mapLength={this.state.mapWidth} mapHeight={this.state.mapHeight} />
             </div>
         );
     }
-}
+});
 
 React.render(<RootComponent />, document.body);
