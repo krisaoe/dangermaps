@@ -36,4 +36,4 @@ var Canvas = React.createClass({
     }
 });
 
-module.exports = Canvas;
+export default Canvas;

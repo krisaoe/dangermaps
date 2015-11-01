@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/interface.styl';
 import MenuBar from './menu-bar';
+import ToolMenu from './tool-menu';
 import Canvas from './canvas';
 import ObjectService from './services/object-service';
 
@@ -50,6 +51,8 @@ var RootComponent = React.createClass({
                 {/* This title + id thing will be a component */}
                 <h2>{ObjectService.get().title}</h2>
                 <p>{ObjectService.get().id}</p>
+
+                <ToolMenu />
                 <MenuBar useBackgroundImage={this.state.useBackgroundImage} toggleUseBackgroundImage={this.toggleUseBackgroundImage} adjustWallOpacity={this.adjustWallOpacity} showBorders={this.state.showBorders} toggleShowBorders={this.toggleShowBorders} adjustMapDimensions={this.adjustMapDimensions} defaultMapWidth={this.state.mapWidth} defaultMapHeight={this.state.mapHeight} />
                 <Canvas wallOpacity={this.state.wallOpacity} showBorders={this.state.showBorders} useBackgroundImage={this.state.useBackgroundImage} backgroundImage={ObjectService.get().backgroundImage} mapLength={this.state.mapWidth} mapHeight={this.state.mapHeight} />
             </div>

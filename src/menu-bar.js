@@ -52,9 +52,9 @@ var MenuBar = React.createClass({
 })
 
 var style = {
-    background: '#fff',
-    padding: '1em',
-    boxShadow:'0px 2px 4px 0px #CCCCCC'
+    //background: '#fff',
+     //padding: '1em',
+    //boxShadow:'0px 2px 4px 0px #CCCCCC'
 }
 var dimInputStyle = {
     display: "inline-block",
@@ -66,4 +66,4 @@ var dimXStyle = {
     margin: "0 0.3em"
 }
 
-module.exports = MenuBar;
+export default MenuBar;

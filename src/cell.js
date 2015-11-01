@@ -35,4 +35,4 @@ var Cell = React.createClass({
     }
 });
 
-module.exports = Cell;
+export default Cell;
