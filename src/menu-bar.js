@@ -43,9 +43,11 @@ var MenuBar = React.createClass({
                         <input ref="wallOpacityInput" onChange={this.handleOpacityChange} type="range" min="0.1" max="1" step="0.05" defaultValue={0.7} />
                     </form>
                 </div>
+                {/*
                 <div className="ibm right">
                     <button>EXPORT</button>
                 </div>
+                */}
             </div>
         );
     }

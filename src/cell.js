@@ -29,7 +29,7 @@ var Cell = React.createClass({
         }
 
         return (
-            <div onClick={this.handleObjectEdit} style={style}>
+            <div className="canvas-cell" onClick={this.handleObjectEdit} style={style}>
             </div>
         );
     }

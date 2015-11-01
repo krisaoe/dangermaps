@@ -30,3 +30,23 @@ body
 
 .right
   float:right
+
+.world
+  display:flex;
+
+.canvas-cell:hover
+  //background:rgba(#000, 0.2) !important;
+
+
+.flexy-workspace
+    flex-grow:1;
+    max-width:100%;
+    transition: max-width 0.5s;
+    &.collapsed
+      max-width:0;
+
+.toolbar-column
+  min-width:200px;
+  padding-left:20px;
+  padding-right:20px;
+
