@@ -12,7 +12,7 @@ var Canvas = React.createClass({
             for (var ii=0; ii<self.props.mapLength; ii++) {
 
                 cells.push(
-                    <Cell key={cellCounter} y={i} x={ii} showBorders={this.props.showBorders} wallOpacity={this.props.wallOpacity} />
+                    <Cell key={cellCounter} y={i} x={ii} showBorders={this.props.showGridLines} wallOpacity={this.props.wallOpacity} />
                 )
                 cellCounter++;
             }

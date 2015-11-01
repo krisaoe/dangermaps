@@ -15,6 +15,7 @@ var MenuBar = React.createClass({
 
     handleToggleShowBorders() {
         this.props.toggleShowBorders();
+
     },
 
     handleToggleUseBackgroundImage() {
@@ -31,8 +32,8 @@ var MenuBar = React.createClass({
                         <input style={dimInputStyle} ref="heightInput" type="number" min="0" defaultValue={this.props.defaultMapHeight}  />
                     </form>
                     <form>
-                        <label>Show Borders</label>
-                        <input type="checkbox" checked={this.props.showBorders} onChange={this.handleToggleShowBorders} />
+                        <label>Show Grid Lines</label>
+                        <input type="checkbox" checked={this.props.showGridLines} onChange={this.handleToggleShowBorders} />
                     </form>
                     <form>
                         <label>Use Map Image</label>

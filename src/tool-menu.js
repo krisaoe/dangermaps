@@ -1,10 +1,11 @@
 import React from 'react';
 import Tool from './tool-option';
 import './style/toolmenu.styl';
+import MStore from './services/mapmaker-datastore';
 
 var toolGroups = [
     [
-        { label: 'Selector', icon:null }
+        { label: 'Selector', icon:'default.png' }
     ],
     [
         { label: 'Hank', icon:'hank.png' },
@@ -12,18 +13,35 @@ var toolGroups = [
         { label: 'Battle Zones', icon:'battlezone.png' }
     ],
     [
-        { label: 'Signs', icon:null },
+        { label: 'Signs', icon:'sign.png' },
         { label: 'NPCs', icon:'npc.png' },
-        { label: 'Exits', icon:null }
+        { label: 'Exits', icon:'default.png' }
     ]
 ]
 
 var ToolMenu = React.createClass({
 
+    getInitialState() {
+      return {
+          currentTool: MStore.get('currentTool')
+      }
+    },
+
+    componentWillMount() {
+        var self = this;
+        MStore.listen('currentTool', function(newValue) {
+            self.setState({
+                currentTool: newValue
+            })
+        });
+    },
+
     renderToolsInGroup(group) {
+        var self = this;
         return group.map(function(d,i) {
+            var isActive = (d.label == self.state.currentTool )
             return (
-                <Tool key={i} label={d.label} icon={d.icon} />
+                <Tool key={i} label={d.label} icon={d.icon} isActive={isActive} />
             )
         })
     },
