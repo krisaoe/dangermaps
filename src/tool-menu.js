@@ -1,28 +1,50 @@
 import React from 'react';
+import Tool from './tool-option';
 import './style/toolmenu.styl';
+
+var toolGroups = [
+    [
+        { label: 'Selector', icon:null }
+    ],
+    [
+        { label: 'Hank', icon:'hank.png' },
+        { label: 'Walls', icon:'wall.png' },
+        { label: 'Battle Zones', icon:'battlezone.png' }
+    ],
+    [
+        { label: 'Signs', icon:null },
+        { label: 'NPCs', icon:'npc.png' },
+        { label: 'Exits', icon:null }
+    ]
+]
 
 var ToolMenu = React.createClass({
 
-    renderItem() {
+    renderToolsInGroup(group) {
+        return group.map(function(d,i) {
+            return (
+                <Tool key={i} label={d.label} icon={d.icon} />
+            )
+        })
+    },
 
+    renderToolGroups() {
+        /* I'm separating these into groups because I imagine some will have similar behaviors  */
+        /* Ex: showing just the map, or showing map & contextual menu side by side */
+        var self = this;
+        return toolGroups.map(function(group, i) {
+            return (
+                <div key={i} className="toolmenu-option-group">
+                    {self.renderToolsInGroup(group)}
+                </div>
+            )
+        });
     },
 
     render() {
         return (
             <div className="toolmenu">
-                <div className="toolmenu-option-group">
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Selector</a>
-                </div>
-                <div className="toolmenu-option-group">
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Hank</a>
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Walls</a>
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Battle Zones</a>
-                </div>
-                <div className="toolmenu-option-group">
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Signs</a>
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">NPCs</a>
-                    <a href="#" className="toolmenu-option toolmenu-option-hank">Exits</a>
-                </div>
+                {this.renderToolGroups()}
             </div>
         );
     }
