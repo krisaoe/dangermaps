@@ -5,7 +5,7 @@ import MStore from './services/mapmaker-datastore';
 
 var toolGroups = [
     [
-        { label: 'Selector', icon:null }
+        { label: 'Selector', icon:'default.png' }
     ],
     [
         { label: 'Hank', icon:'hank.png' },
@@ -13,9 +13,9 @@ var toolGroups = [
         { label: 'Battle Zones', icon:'battlezone.png' }
     ],
     [
-        { label: 'Signs', icon:null },
+        { label: 'Signs', icon:'sign.png' },
         { label: 'NPCs', icon:'npc.png' },
-        { label: 'Exits', icon:null }
+        { label: 'Exits', icon:'default.png' }
     ]
 ]
 

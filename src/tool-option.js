@@ -10,8 +10,6 @@ var Tool = React.createClass({
 
     render() {
 
-        var icon = (this.props.icon) ? (<img src={'/images/ui/'+this.props.icon} />) : null;
-
         if (this.props.isActive) {
             style.background = "#3498db";
             style.color = "#fff";
