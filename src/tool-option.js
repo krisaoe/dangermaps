@@ -1,11 +1,18 @@
 import React from 'react';
+import MStore from './services/mapmaker-datastore';
 
 var Tool = React.createClass({
+
+    handleClick(e) {
+        e.preventDefault();
+        MStore.set('currentTool', this.props.label)
+    },
+
     render() {
 
         var icon = (this.props.icon) ? (<img src={'/images/ui/'+this.props.icon} />) : null;
 
-        if (this.props.label == "Walls" /* TEMPORARY */ ) {
+        if (this.props.isActive) {
             style.background = "#3498db";
             style.color = "#fff";
         } else {
@@ -14,7 +21,7 @@ var Tool = React.createClass({
         }
 
         return (
-            <a href="#" style={style}>
+            <a href="#" style={style} onClick={this.handleClick}>
                 <img style={iconStyle} src={'/images/ui/'+this.props.icon} />
                 <span style={labelStyle}>{this.props.label}</span>
             </a>

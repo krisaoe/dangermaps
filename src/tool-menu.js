@@ -1,6 +1,7 @@
 import React from 'react';
 import Tool from './tool-option';
 import './style/toolmenu.styl';
+import MStore from './services/mapmaker-datastore';
 
 var toolGroups = [
     [
@@ -20,10 +21,27 @@ var toolGroups = [
 
 var ToolMenu = React.createClass({
 
+    getInitialState() {
+      return {
+          currentTool: MStore.get('currentTool')
+      }
+    },
+
+    componentWillMount() {
+        var self = this;
+        MStore.listen('currentTool', function(newValue) {
+            self.setState({
+                currentTool: newValue
+            })
+        });
+    },
+
     renderToolsInGroup(group) {
+        var self = this;
         return group.map(function(d,i) {
+            var isActive = (d.label == self.state.currentTool )
             return (
-                <Tool key={i} label={d.label} icon={d.icon} />
+                <Tool key={i} label={d.label} icon={d.icon} isActive={isActive} />
             )
         })
     },
