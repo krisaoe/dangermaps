@@ -36,7 +36,7 @@ var MenuBar = React.createClass({
                         <input type="checkbox" checked={this.props.showGridLines} onChange={this.handleToggleShowBorders} />
                     </form>
                     <form>
-                        <label>Use Map Image</label>
+                        <label>Show Map Image</label>
                         <input type="checkbox" checked={this.props.useBackgroundImage} onChange={this.handleToggleUseBackgroundImage} />
                     </form>
                     <form>

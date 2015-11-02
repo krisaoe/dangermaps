@@ -1,6 +1,6 @@
 var initialMapData = {
-    id: "sample-dangercrew-map-001",
-    title: "Drew's First Map",
+    //id: "sample-dangercrew-map-001",
+    //title: "Drew's First Map",
     backgroundImage: "1.png",
     width: 20,
     height: 17,

@@ -1,8 +1,13 @@
 import React from 'react';
+import Firebase from 'firebase';
 import './style/interface.styl';
 import MenuBar from './menu-bar';
 import ToolMenu from './tool-menu';
 import Canvas from './canvas';
+import MapOpener from './map-opener';
+import MapName from './map-name';
+
+
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 
@@ -12,17 +17,58 @@ import SampleMap from './fixtures/sample-map-001.json';
 
 var RootComponent = React.createClass({
 
+    componentWillMount() {
+        var self = this;
+        var fb = new Firebase("https://dangerstudio.firebaseio.com/");
+
+        /* LOAD THE DATA */
+        fb.child("maps").on("value", function(data) { /* Should prob just use "once" but we'll see */
+            var dataArray = [];
+            data.forEach(function(snap) {
+                var obj = snap.val();
+                obj.id = snap.key();
+
+                dataArray.push( obj );
+            })
+
+            console.log("dataArray", dataArray);
+
+            self.setState({
+                isDataLoaded: true,
+                mapData: dataArray
+            })
+        });
+
+
+        MStore.listen('currentMap', function(newValue) {
+            self.loadMap(newValue)
+        });
+    },
+
 
     getInitialState() {
         return {
+
+            /*  */
+            isDataLoaded: false,
+            mapData: [], /* The maps from Firebase */
+
             /* Canvas viewing options */
             showGridLines: MStore.get('showGridLines'),
             wallOpacity: MStore.get('wallOpacity'),
             useBackgroundImage: MStore.get('useBackgroundImage'),
 
             mapWidth: ObjectService.get().width,
-            mapHeight: ObjectService.get().height
+            mapHeight: ObjectService.get().height,
+
+            currentMap: null /* The map you are currently working on */
         }
+    },
+
+    loadMap(map) {
+        this.setState({
+            currentMap: map
+        })
     },
 
     adjustMapDimensions(width, height) {
@@ -50,24 +96,69 @@ var RootComponent = React.createClass({
         })
     },
 
-    render() {
+    renderEmptyMapState() {
         return (
-                <div className="world">
-                    <div className="flexy-workspace">
-                        {/* This title + id thing will be a component */}
-                        <h2>{ObjectService.get().title}</h2>
-                        <p>{ObjectService.get().id}</p>
-                        <MenuBar useBackgroundImage={this.state.useBackgroundImage} toggleUseBackgroundImage={this.toggleUseBackgroundImage} adjustWallOpacity={this.adjustWallOpacity} showGridLines={this.state.showGridLines} toggleShowBorders={this.toggleShowBorders} adjustMapDimensions={this.adjustMapDimensions} defaultMapWidth={this.state.mapWidth} defaultMapHeight={this.state.mapHeight} />
-                        <Canvas wallOpacity={this.state.wallOpacity} showGridLines={this.state.showGridLines} useBackgroundImage={this.state.useBackgroundImage} backgroundImage={ObjectService.get().backgroundImage} mapLength={this.state.mapWidth} mapHeight={this.state.mapHeight} />
-                    </div>
-                    <div className="flexy-workspace collapsed">
+            <div>
+                Open a map to get started!
+            </div>
+        )
+    },
 
+    renderMapInterface() {
+        return (
+            <div className="world">
+                <div className="flexy-workspace">
+                    {/* This title + id thing will be a component */}
+                    <div>
+                        <MapName name={this.state.currentMap.name} />
+                        <p>{this.state.currentMap.id}</p>
                     </div>
-                    <div className="toolbar-column">
-                        <ToolMenu />
-                    </div>
+
+                    <MenuBar
+                        useBackgroundImage={this.state.useBackgroundImage}
+                        toggleUseBackgroundImage={this.toggleUseBackgroundImage}
+                        adjustWallOpacity={this.adjustWallOpacity}
+                        showGridLines={this.state.showGridLines}
+                        toggleShowBorders={this.toggleShowBorders}
+                        adjustMapDimensions={this.adjustMapDimensions}
+                        defaultMapWidth={this.state.mapWidth}
+                        defaultMapHeight={this.state.mapHeight}
+                    />
+                    <Canvas
+                        wallOpacity={this.state.wallOpacity}
+                        showGridLines={this.state.showGridLines}
+                        useBackgroundImage={this.state.useBackgroundImage}
+                        backgroundImage={this.state.currentMap.backgroundImage}
+                        mapLength={this.state.mapWidth}
+                        mapHeight={this.state.mapHeight}
+                    />
                 </div>
-        );
+                <div className="flexy-workspace collapsed">
+
+                </div>
+                <div className="toolbar-column">
+                    <ToolMenu />
+                </div>
+            </div>
+        )
+    },
+
+    render() {
+        if (this.state.isDataLoaded) {
+
+            var mapInterface = (this.state.currentMap) ? this.renderMapInterface() : this.renderEmptyMapState();
+
+            return (
+                <div>
+                    <MapOpener maps={this.state.mapData} />
+                    <hr />
+                    {mapInterface}
+                </div>
+            )
+        }
+        return (
+            <div>LOADING...</div>
+        )
     }
 });
 
