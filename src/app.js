@@ -6,6 +6,10 @@ import Canvas from './canvas';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 
+//Not sure what I'm going to do with this yet:
+import SampleMap from './fixtures/sample-map-001.json';
+
+
 var RootComponent = React.createClass({
 
 
