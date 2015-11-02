@@ -17,13 +17,28 @@ var MapOpener = React.createClass({
         }
     },
 
-    handleOpenMap() {
-        var value = this.refs.mapSelectBox.getDOMNode().value;
+    componentDidMount() {
+
+        /* RELOAD LAST KNOWN MAP */
+        var lastOpenedMap = localStorage.getItem('lastOpenedMap');
+        if (lastOpenedMap) {
+            this.openMap(lastOpenedMap);
+        }
+    },
+
+    openMap(mapId) {
         var selectedMap = this.props.maps.filter(function(map) {
-            return map.id == value;
+            return map.id == mapId;
         })[0];
 
         MStore.set('currentMap', selectedMap);
+        localStorage.setItem('lastOpenedMap', mapId);
+    },
+
+
+    handleOpenMapSelectbox() {
+        var value = this.refs.mapSelectBox.getDOMNode().value;
+        this.openMap(value);
     },
 
     handleCreateNewMap() {
@@ -83,7 +98,7 @@ var MapOpener = React.createClass({
         return (
             <div>
                 Open a map:
-                <select ref="mapSelectBox" onChange={this.handleOpenMap}>
+                <select ref="mapSelectBox" onChange={this.handleOpenMapSelectbox}>
                     <option disabled selected>Choose Map</option>
                     {this.renderMapOptions()}
                 </select>

@@ -6,16 +6,30 @@ import ToolMenu from './tool-menu';
 import Canvas from './canvas';
 import MapOpener from './map-opener';
 import MapName from './map-name';
-
-
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 
-//Not sure what I'm going to do with this yet:
-import SampleMap from './fixtures/sample-map-001.json';
 
 
 var RootComponent = React.createClass({
+
+    getInitialState() {
+        return {
+            /*  */
+            isDataLoaded: false,
+            mapData: [], /* The maps from Firebase */
+
+            /* Canvas viewing options */
+            showGridLines: MStore.get('showGridLines'),
+            wallOpacity: MStore.get('wallOpacity'),
+            useBackgroundImage: MStore.get('useBackgroundImage'),
+
+            mapWidth: ObjectService.get().width,
+            mapHeight: ObjectService.get().height,
+
+            currentMap: null /* The map you are currently working on */
+        }
+    },
 
     componentWillMount() {
         var self = this;
@@ -45,29 +59,17 @@ var RootComponent = React.createClass({
         });
     },
 
-
-    getInitialState() {
-        return {
-
-            /*  */
-            isDataLoaded: false,
-            mapData: [], /* The maps from Firebase */
-
-            /* Canvas viewing options */
-            showGridLines: MStore.get('showGridLines'),
-            wallOpacity: MStore.get('wallOpacity'),
-            useBackgroundImage: MStore.get('useBackgroundImage'),
-
-            mapWidth: ObjectService.get().width,
-            mapHeight: ObjectService.get().height,
-
-            currentMap: null /* The map you are currently working on */
-        }
-    },
-
     loadMap(map) {
         this.setState({
             currentMap: map
+        })
+    },
+
+    closeMap() {
+        this.setState({
+            currentMap: null
+        }, function() {
+            MStore.set('currentMap', null)
         })
     },
 
@@ -112,6 +114,7 @@ var RootComponent = React.createClass({
                     <div>
                         <MapName name={this.state.currentMap.name} />
                         <p>{this.state.currentMap.id}</p>
+                        <button onClick={this.closeMap}>Close Map</button>
                     </div>
 
                     <MenuBar
