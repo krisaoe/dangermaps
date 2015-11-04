@@ -8,7 +8,7 @@ import MapOpener from './map-opener';
 import MapName from './map-name';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
-
+import FirebaseService from './services/firebase-service';
 
 
 var RootComponent = React.createClass({
@@ -60,9 +60,25 @@ var RootComponent = React.createClass({
     },
 
     loadMap(map) {
+        console.log('LOADING', map)
         this.setState({
             currentMap: map
+        }, function() {
+            this.adjustMapDimensions(map.width, map.height)
         })
+    },
+
+    saveMap() {
+        var newMapState = {
+            width: parseInt(this.state.mapWidth),
+            height: parseInt(this.state.mapHeight)
+        }
+        console.log('save', newMapState);
+
+        var fs = new FirebaseService();
+        fs.updateCurrentMap(newMapState);
+
+
     },
 
     closeMap() {
@@ -114,6 +130,7 @@ var RootComponent = React.createClass({
                     <div>
                         <MapName name={this.state.currentMap.name} />
                         <p>{this.state.currentMap.id}</p>
+                        <button onClick={this.saveMap}>Save Map</button>
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>
 

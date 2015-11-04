@@ -1,7 +1,7 @@
 import React from 'react';
 import Firebase from 'firebase';
 import MStore from './services/mapmaker-datastore';
-
+import Map from './models/map';
 
 var MapOpener = React.createClass({
 
@@ -46,16 +46,10 @@ var MapOpener = React.createClass({
         var mapName = self.refs.newMapName.getDOMNode().value;
         if (mapName.length > 0) {
             var fb = new Firebase("https://dangerstudio.firebaseio.com/maps");
-            var uniqueId = 'map_' + Math.floor((Math.random() * 999999) + 1);
+            var newMap = new Map({name: mapName});
 
-            var newMap = {
-                id: uniqueId, /* copy of FB key */
-                name: mapName
-            }
-
-            fb.child(uniqueId).set(newMap, function () {
+            fb.child(newMap.id).set(newMap, function () {
                 self.refs.newMapName.getDOMNode().value = ""; /* This thing would probably go away anyway */
-
                 MStore.set('currentMap', newMap); //send local copy to the editor
             });
 

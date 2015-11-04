@@ -26,11 +26,12 @@ var MenuBar = React.createClass({
         return (
             <div style={style}>
                 <div className="ibm">
-                    <form onChange={this.handleDimensionsChange}>
-                        <input style={dimInputStyle} ref="widthInput" type="number" min="0" defaultValue={this.props.defaultMapWidth} />
+                    <div>
+                        <input style={dimInputStyle} ref="widthInput" type="number" min="0" onChange={this.handleDimensionsChange} value={this.props.defaultMapWidth} />
                         <span style={dimXStyle}>&times;</span>
-                        <input style={dimInputStyle} ref="heightInput" type="number" min="0" defaultValue={this.props.defaultMapHeight}  />
-                    </form>
+                        <input style={dimInputStyle} ref="heightInput" type="number" min="0" onChange={this.handleDimensionsChange} value={this.props.defaultMapHeight}  />
+                    </div>
+                    <p>VIEW OPTIONS</p>
                     <form>
                         <label>Show Grid Lines</label>
                         <input type="checkbox" checked={this.props.showGridLines} onChange={this.handleToggleShowBorders} />
