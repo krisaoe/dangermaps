@@ -126,10 +126,9 @@ var RootComponent = React.createClass({
         return (
             <div className="world">
                 <div className="flexy-workspace">
-                    {/* This title + id thing will be a component */}
                     <div>
-                        <MapName name={this.state.currentMap.name} />
-                        <p>{this.state.currentMap.id}</p>
+                        <MapName name={this.state.currentMap.name} id={this.state.currentMap.id} />
+
                         <button onClick={this.saveMap}>Save Map</button>
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>

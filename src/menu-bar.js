@@ -15,7 +15,6 @@ var MenuBar = React.createClass({
 
     handleToggleShowBorders() {
         this.props.toggleShowBorders();
-
     },
 
     handleToggleUseBackgroundImage() {
