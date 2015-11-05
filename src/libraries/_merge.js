@@ -1,3 +1,4 @@
+
 var merge = function(target, source) {
 
     /* Merges two (or more) objects,

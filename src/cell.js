@@ -1,19 +1,23 @@
 import React from 'react';
 import ObjectService from './services/object-service';
-
+import MStore from './services/mapmaker-datastore';
 
 var Cell = React.createClass({
 
-    getInitialState() {
-        return {
-            isFree: true
-        }
-    },
-
     handleObjectEdit() {
-        this.setState({
-            isFree: !this.state.isFree
-        })
+
+        var me = {
+            x: this.props.x,
+            y: this.props.y
+        }
+
+        if (this.props.isWall) {
+            //console.log('onDeac')
+            this.props.onDeactivation(me);
+        } else {
+            //console.log('onAct')
+            this.props.onActivation(me);
+        }
     },
 
     render() {
@@ -25,7 +29,7 @@ var Cell = React.createClass({
             border: (this.props.showBorders) ? '1px solid rgba(0,0,0,0.3)' : 0,
             left: (this.props.x * 16),
             top: (this.props.y * 16),
-            background: (this.state.isFree) ? "rgba(255,255,255,0)" : "rgba(0,0,0,"+wallOpacity+")"
+            background: (this.props.isWall) ? "rgba(0,0,0,"+wallOpacity+")" : "rgba(255,255,255,0)"
         }
 
         return (

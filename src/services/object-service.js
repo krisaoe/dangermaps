@@ -16,6 +16,8 @@ var ObjectService = function() {
 
         map: initialMapData,
 
+        objects: [],
+
         get() {
             return this.map
         },
