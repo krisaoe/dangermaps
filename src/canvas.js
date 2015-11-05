@@ -24,7 +24,7 @@ var Canvas = React.createClass({
 
     handleRemoveCell(cell) {
         var notRemoved = this.state.walls.filter(function(wall) {
-           return (cell.x != wall.x && !cell.y != wall.y)
+           return (cell.x != wall.x || cell.y != wall.y)
         });
 
         this.setState({
