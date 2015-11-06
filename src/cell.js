@@ -26,10 +26,11 @@ var Cell = React.createClass({
             width:16,
             height:16,
             position: 'absolute',
-            border: (this.props.showBorders) ? '1px solid rgba(0,0,0,0.3)' : 0,
+            border: (this.props.showBorders && !this.props.isWall) ? '1px solid rgba(0,0,0,0.3)' : 0,
             left: (this.props.x * 16),
             top: (this.props.y * 16),
-            background: (this.props.isWall) ? "rgba(0,0,0,"+wallOpacity+")" : "rgba(255,255,255,0)"
+            background: (this.props.isWall) ? "url(/images/ui/wall.png)" : "rgba(255,255,255,0)",
+            opacity: this.props.wallOpacity
         }
 
         return (

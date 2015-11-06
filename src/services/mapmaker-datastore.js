@@ -6,7 +6,7 @@ var MapmakerDatastore = new Datastore();
 MapmakerDatastore.store = {
     currentTool: "Hank",
     showGridLines: true,
-    wallOpacity: 0.7,
+    wallOpacity: 0.9,
     useBackgroundImage: true
 }
 
