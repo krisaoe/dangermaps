@@ -22,10 +22,12 @@ var RootComponent = React.createClass({
             /* Canvas viewing options */
             showGridLines: MStore.get('showGridLines'),
             wallOpacity: MStore.get('wallOpacity'),
-            useBackgroundImage: MStore.get('useBackgroundImage'),
 
-            mapWidth: ObjectService.get().width,
-            mapHeight: ObjectService.get().height,
+            useBackgroundImage: MStore.get('useBackgroundImage'),
+            backgroundImage: null,
+
+            mapWidth: 0,//ObjectService.get().width,
+            mapHeight: 0,//ObjectService.get().height,
 
             currentMap: null /* The map you are currently working on */
         }
@@ -50,11 +52,14 @@ var RootComponent = React.createClass({
     loadMap(map) {
         console.log('LOADING', map)
         this.setState({
-            currentMap: map
+            currentMap: map,
+            backgroundImage: map.backgroundImage || ""
         }, function() {
 
             if (map) {
+                //adjust current view with newly loaded Map's values
                 this.adjustMapDimensions(map.width, map.height);
+                this.refs.backgroundImageInput.getDOMNode().value = this.state.backgroundImage;
                 MStore.set('currentMapWalls', map.walls || []);
             }
 
@@ -65,6 +70,7 @@ var RootComponent = React.createClass({
         var newMapState = {
             width: parseInt(this.state.mapWidth),
             height: parseInt(this.state.mapHeight),
+            backgroundImage: (this.state.backgroundImage),
             walls: MStore.get('currentMapWalls') || []
         }
 
@@ -91,6 +97,12 @@ var RootComponent = React.createClass({
     adjustWallOpacity(newValue) {
         this.setState({
             wallOpacity: newValue
+        })
+    },
+
+    changeBackgroundImage(newValue) {
+        this.setState({
+            backgroundImage: this.refs.backgroundImageInput.getDOMNode().value
         })
     },
 
@@ -124,7 +136,10 @@ var RootComponent = React.createClass({
                         <button onClick={this.saveMap}>Save Map</button>
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>
-
+                    <div>
+                        Background Image
+                        <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
+                    </div>
                     <MenuBar
                         useBackgroundImage={this.state.useBackgroundImage}
                         toggleUseBackgroundImage={this.toggleUseBackgroundImage}
@@ -140,7 +155,7 @@ var RootComponent = React.createClass({
                         wallOpacity={this.state.wallOpacity}
                         showGridLines={this.state.showGridLines}
                         useBackgroundImage={this.state.useBackgroundImage}
-                        backgroundImage={this.state.currentMap.backgroundImage}
+                        backgroundImage={this.state.backgroundImage}
                         mapLength={this.state.mapWidth}
                         mapHeight={this.state.mapHeight}
                     />

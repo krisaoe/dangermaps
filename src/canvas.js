@@ -41,7 +41,6 @@ var Canvas = React.createClass({
     },
 
     updateCurrentMapWalls() {
-        console.log('something happening')
       MStore.set('currentMapWalls', this.state.walls);
     },
 
@@ -69,8 +68,10 @@ var Canvas = React.createClass({
 
     render() {
 
+        var backgroundImagePath = (this.props.backgroundImage);
+
         var dynamicStyles = {
-            backgroundImage: (this.props.useBackgroundImage) ? "url(/images/"+this.props.backgroundImage+")" : "none",
+            backgroundImage: (this.props.useBackgroundImage) ? "url("+backgroundImagePath+")" : "none",
             width: (this.props.mapLength * 16),
             height: (this.props.mapHeight * 16)
         };
