@@ -131,9 +131,6 @@ var RootComponent = React.createClass({
             <div className="world">
                 <div className="flexy-workspace">
                     <div>
-                        <MapName name={this.state.currentMap.name} id={this.state.currentMap.id} />
-
-                        <button onClick={this.saveMap}>Save Map</button>
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>
                     <div>
@@ -170,6 +167,30 @@ var RootComponent = React.createClass({
         )
     },
 
+    renderName() {
+        return (this.state.currentMap)
+            ? <MapName name={this.state.currentMap.name} id={this.state.currentMap.id} />
+            : null;
+    },
+
+    renderTopBar() {
+        return (
+            <div className="topbar">
+                <div className="topbar-left">
+                    <div className="ibm">
+                        {this.renderName()}
+                    </div>
+                    <div className="ibm">
+                        <button onClick={this.saveMap}>Save Map</button>
+                    </div>
+                </div>
+                <div className="topbar-right">
+                        <MapOpener maps={this.state.mapData} />
+                </div>
+            </div>
+        )
+    },
+
     render() {
         if (this.state.isDataLoaded) {
 
@@ -177,8 +198,7 @@ var RootComponent = React.createClass({
 
             return (
                 <div>
-                    <MapOpener maps={this.state.mapData} />
-                    <hr />
+                    {this.renderTopBar()}
                     {mapInterface}
                 </div>
             )

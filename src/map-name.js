@@ -67,9 +67,11 @@ var MapName = React.createClass({
                         <button onClick={this.toggleEditing}>Edit</button>
                     </span>
                 </div>
+                {/*
                 <div>
                     <span>{this.props.id}</span>
                 </div>
+                */}
             </div>
         );
     }
