@@ -1,4 +1,5 @@
-import merge from '../libraries/_merge';
+//import merge from '../libraries/_merge';
+import $ from 'jquery';
 
 var Datastore = function() {
     var self = {
@@ -7,14 +8,13 @@ var Datastore = function() {
                 if ( self.store[key].constructor === Array) {
                     return self.store[key].slice(0);
                 } else {
-                    return merge( {}, self.store[key] );
+                    return $.extend( {}, self.store[key] );
                 }
             }
             else
                 return self.store[key];
         },
         set: function(key, value) {
-
             self.store[key] = value;
 
             //Execute any actions that are interested in this variable

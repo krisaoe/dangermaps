@@ -33,27 +33,15 @@ var RootComponent = React.createClass({
 
     componentWillMount() {
         var self = this;
-        var fb = new Firebase("https://dangerstudio.firebaseio.com/");
 
-        /* LOAD THE DATA */
-        fb.child("maps").on("value", function(data) { /* Should prob just use "once" but we'll see */
-            var dataArray = [];
-            data.forEach(function(snap) {
-                var obj = snap.val();
-                obj.id = snap.key();
-
-                dataArray.push( obj );
-            })
-
-            console.log("dataArray", dataArray);
-
+        FirebaseService.getAllMaps(function(mapArray) {
             self.setState({
                 isDataLoaded: true,
-                mapData: dataArray
+                mapData: mapArray
             })
         });
 
-
+        /* Listen for currentMap to change */
         MStore.listen('currentMap', function(newValue) {
             self.loadMap(newValue)
         });
@@ -64,21 +52,25 @@ var RootComponent = React.createClass({
         this.setState({
             currentMap: map
         }, function() {
-            this.adjustMapDimensions(map.width, map.height)
+
+            if (map) {
+                this.adjustMapDimensions(map.width, map.height);
+                MStore.set('currentMapWalls', map.walls || []);
+            }
+
         })
     },
 
     saveMap() {
         var newMapState = {
             width: parseInt(this.state.mapWidth),
-            height: parseInt(this.state.mapHeight)
+            height: parseInt(this.state.mapHeight),
+            walls: MStore.get('currentMapWalls') || []
         }
-        console.log('save', newMapState);
 
-        var fs = new FirebaseService();
-        fs.updateCurrentMap(newMapState);
-
-
+        FirebaseService.updateCurrentMap(newMapState, function() {
+            console.log('SAVED');
+        });
     },
 
     closeMap() {
@@ -144,6 +136,7 @@ var RootComponent = React.createClass({
                         defaultMapHeight={this.state.mapHeight}
                     />
                     <Canvas
+                        initialWalls={this.state.currentMap.walls}
                         wallOpacity={this.state.wallOpacity}
                         showGridLines={this.state.showGridLines}
                         useBackgroundImage={this.state.useBackgroundImage}

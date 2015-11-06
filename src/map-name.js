@@ -21,12 +21,13 @@ var MapName = React.createClass({
       });
     },
 
-    handleUpdateName() {
+    handleUpdateName(e) {
+        e.preventDefault();
         var self = this;
         var userInputValue = this.refs.editNameInput.getDOMNode().value
-        var fs = new FirebaseService();
+        //var fs = new FirebaseService();
 
-            fs.updateCurrentMap({
+            FirebaseService.updateCurrentMap({
                 "name": userInputValue
             });
 
@@ -35,7 +36,6 @@ var MapName = React.createClass({
 
             var alteredMapData = MStore.get('currentMap');
             alteredMapData.name = userInputValue
-
             MStore.set('currentMap', alteredMapData);
 
             self.setState({

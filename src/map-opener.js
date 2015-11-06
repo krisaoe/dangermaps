@@ -38,7 +38,10 @@ var MapOpener = React.createClass({
 
     handleOpenMapSelectbox() {
         var value = this.refs.mapSelectBox.getDOMNode().value;
-        this.openMap(value);
+
+        if (value.length) {
+            this.openMap(value);
+        }
     },
 
     handleCreateNewMap() {
@@ -91,9 +94,8 @@ var MapOpener = React.createClass({
 
         return (
             <div>
-                Open a map:
-                <select ref="mapSelectBox" onChange={this.handleOpenMapSelectbox}>
-                    <option disabled selected>Choose Map</option>
+                <select ref="mapSelectBox"  onChange={this.handleOpenMapSelectbox}>
+                    <option value={""}>Open a map</option>
                     {this.renderMapOptions()}
                 </select>
                 {createNewMapForm}

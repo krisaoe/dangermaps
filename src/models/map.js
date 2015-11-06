@@ -8,7 +8,8 @@ var Map = function(params) {
         name: "Map Name",
         width: 20,          /* cells */
         height: 15,
-        backgroundImage: null
+        backgroundImage: null,
+        walls: []
     };
 
     return merge(defaultParams, params);

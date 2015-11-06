@@ -3,23 +3,29 @@ import MStore from './mapmaker-datastore';
 
 var FirebaseService = function() {
     var self = this;
-    //var fb = new Firebase("https://dangerstudio.firebaseio.com/maps");
-
-    var getCurrentMap = function(callback) {
-    };
-
-    /* --- PUBLIC API --- */
 
     self.updateCurrentMap = function(newValues, callback) {
-
-        var currentMapId = MStore.get('currentMap').id;
-        var fb = new Firebase("https://dangerstudio.firebaseio.com/maps/" + currentMapId);
-
+        var fb = new Firebase("https://dangerstudio.firebaseio.com/maps/" + MStore.get('currentMap').id );
         fb.update(newValues, callback);
+    };
+
+    self.getAllMaps = function(callback) {
+        var fb = new Firebase("https://dangerstudio.firebaseio.com/");
+
+        fb.child("maps").once("value", function(data) {
+            var dataArray = [];
+            data.forEach(function(snap) {
+                var obj = snap.val();
+                obj.id = snap.key(); //include id in value
+                dataArray.push( obj );
+            })
+
+            callback(dataArray);
+        });
     };
 
 
     return self;
 };
 
-export default FirebaseService;
+export default new FirebaseService();

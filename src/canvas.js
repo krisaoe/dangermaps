@@ -5,31 +5,44 @@ import MStore from './services/mapmaker-datastore';
 
 var Canvas = React.createClass({
 
-    getInitialState() { /* Trying to keep this a prop */
+    getInitialState() {
         return {
-            walls: [
-                {id: "wall_0", x:1, y:2},
-                {id: "wall_1", x:2, y:3},
-                {id: "wall_2", x:3, y:4},
-                {id: "wall_3", x:1, y:5}
-            ]
+            walls: this.props.initialWalls || []
         }
     },
 
-    handleAddCell(cell) {
-        this.setState({
-            walls: this.state.walls.concat([cell])
-        })
+    componentWillMount() {
+        var self = this;
+        MStore.listen("currentMap", function(newValue) {
+            var newWalls = (newValue) ? newValue.walls : [];
+            console.log('new Map Loaded!', newWalls);
+            self.setState({walls: newWalls })
+        }, "canvas");
     },
 
-    handleRemoveCell(cell) {
+    componentWillUnmount() {
+        MStore.stopListening("currentMap", "canvas")
+    },
+
+    handleAddWall(cell) {
+        this.setState({
+            walls: this.state.walls.concat([cell])
+        }, this.updateCurrentMapWalls)
+    },
+
+    handleRemoveWall(cell) {
         var notRemoved = this.state.walls.filter(function(wall) {
            return (cell.x != wall.x || cell.y != wall.y)
         });
 
         this.setState({
             walls: notRemoved
-        })
+        }, this.updateCurrentMapWalls)
+    },
+
+    updateCurrentMapWalls() {
+        console.log('something happening')
+      MStore.set('currentMapWalls', this.state.walls);
     },
 
 
@@ -46,7 +59,7 @@ var Canvas = React.createClass({
                 }).length > 0;
 
                 cells.push(
-                    <Cell key={cellCounter} y={i} x={ii} isWall={isWall} onActivation={this.handleAddCell} onDeactivation={this.handleRemoveCell} showBorders={this.props.showGridLines} wallOpacity={this.props.wallOpacity} />
+                    <Cell key={cellCounter} y={i} x={ii} isWall={isWall} onActivation={this.handleAddWall} onDeactivation={this.handleRemoveWall} showBorders={this.props.showGridLines} wallOpacity={this.props.wallOpacity} />
                 )
                 cellCounter++;
             }
