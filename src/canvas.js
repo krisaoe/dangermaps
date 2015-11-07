@@ -41,7 +41,8 @@ var Canvas = React.createClass({
     },
 
     updateCurrentMapWalls() {
-      MStore.set('currentMapWalls', this.state.walls);
+        MStore.set('currentMapWalls', this.state.walls);
+        MStore.eventHappened('wallsChanged');
     },
 
 

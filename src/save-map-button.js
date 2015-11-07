@@ -1,16 +1,30 @@
 import React from 'react';
+import MStore from './services/mapmaker-datastore';
 
 var SaveMapButton = React.createClass({
 
     getInitialState() {
       return {
-          isDirty: true
+          isDirty: false
       }
+    },
+
+    componentWillMount() {
+        var self = this;
+        MStore.when('wallsChanged', function() {
+            self.setState({
+                isDirty: true
+            })
+        });
     },
 
     handleClick(e) {
         e.preventDefault();
         this.props.onSave();
+
+        this.setState({
+            isDirty: false
+        })
     },
 
     render() {

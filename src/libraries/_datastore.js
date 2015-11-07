@@ -50,7 +50,32 @@ var Datastore = function() {
         },
 
         store: {},
-        watchings: []
+        watchings: [],
+
+        /* New feature.... */
+        /* Events: Do something when something else in the app happens. Does not know or care about the new value */
+        /* Would be cool if eventKey could be an array too, so component could execute one callback on a few different events */
+
+        oneTimeActions: [], /* store the actions */
+        when: function(eventKey, callback) {
+            /* When this happens, do this thing */
+            self.oneTimeActions.push({
+                eventKey: eventKey,
+                action: callback
+            });
+        },
+        eventHappened: function(eventKey) {
+           var reactions = self.oneTimeActions.filter(function(action) {
+              return eventKey == action.eventKey;
+           });
+
+            reactions.forEach(function(reaction) {
+               reaction.action();
+            });
+
+        },
+
+
     }
 
     return self;
