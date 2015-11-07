@@ -25,7 +25,7 @@ var PlayerParameters = React.createClass({
                 </div>
                 <div>
                     Direction:
-                    <select value="down" ref="playerDirSelect" onChange={this.updatePlayerParameters} >
+                    <select defaultValue="down" ref="playerDirSelect" onChange={this.updatePlayerParameters} >
                         <option value="left">Left</option>
                         <option value="right">Right</option>
                         <option value="up">Up</option>

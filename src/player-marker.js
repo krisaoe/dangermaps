@@ -23,8 +23,16 @@ var PlayerMarker = React.createClass({
         });
     },
 
+    getDirectionSpritePosition() {
+        if (this.state.dir == "left") { return 32; }
+        if (this.state.dir == "right") { return 0; }
+        if (this.state.dir == "up") { return 16; }
+        if (this.state.dir == "down") { return 48; }
+    },
+
     getStyle() {
         return {
+            backgroundPositionX: this.getDirectionSpritePosition(),
             left: (this.state.x * 16),
             top: (this.state.y * 16)
         }

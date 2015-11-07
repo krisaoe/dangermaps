@@ -76,7 +76,8 @@ var RootComponent = React.createClass({
             width: parseInt(this.state.mapWidth),
             height: parseInt(this.state.mapHeight),
             backgroundImage: (this.state.backgroundImage),
-            walls: MStore.get('currentMapWalls') || []
+            walls: MStore.get('currentMapWalls') || [],
+            player: MStore.get('currentMapPlayerParams') || {}
         }
 
         FirebaseService.updateCurrentMap(newMapState, function() {
