@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './cell';
+import PlayerMarker from './player-marker';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 
@@ -81,6 +82,7 @@ var Canvas = React.createClass({
         return (
             <div style={dynamicStyles} className="canvas">
                 {this.renderCells()}
+                <PlayerMarker />
             </div>
         );
     }

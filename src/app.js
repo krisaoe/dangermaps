@@ -2,6 +2,7 @@ import React from 'react';
 import Firebase from 'firebase';
 import './style/interface.styl';
 import MapParameters from './map-parameters';
+import PlayerParameters from './player-parameters';
 import ToolMenu from './tool-menu';
 import Canvas from './canvas';
 import ViewOptions from './view-options';
@@ -13,6 +14,7 @@ import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 import FirebaseService from './services/firebase-service';
 
+window.DevMStore = MStore; /* JUST FOR DEV */
 
 var RootComponent = React.createClass({
 
@@ -138,16 +140,20 @@ var RootComponent = React.createClass({
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>
                     Why close a map? */}
-                    <div>
-                        Background Image
-                        <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
-                    </div>
+                        <h3>Player</h3>
+                        <PlayerParameters />
+
+                    <h3>Map Size & Image</h3>
 
                     <MapParameters
                         adjustMapDimensions={this.adjustMapDimensions}
                         defaultMapWidth={this.state.mapWidth}
                         defaultMapHeight={this.state.mapHeight}
                     />
+                    <div>
+                        Background Image
+                        <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
+                    </div>
                     <Canvas
                         initialWalls={this.state.currentMap.walls}
                         wallOpacity={this.state.wallOpacity}

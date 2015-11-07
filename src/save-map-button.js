@@ -11,7 +11,14 @@ var SaveMapButton = React.createClass({
 
     componentWillMount() {
         var self = this;
+
+        /* These do the same thing. It would be sweet if .when accepted an array */
         MStore.when('wallsChanged', function() {
+            self.setState({
+                isDirty: true
+            })
+        });
+        MStore.when('playerParametersChanged', function() {
             self.setState({
                 isDirty: true
             })

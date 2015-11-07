@@ -7,7 +7,10 @@ MapmakerDatastore.store = {
     currentTool: "Hank",
     showGridLines: true,
     wallOpacity: 0.9,
-    useBackgroundImage: true
+    useBackgroundImage: true,
+    currentMap: null,
+    currentMapWalls: [],
+    currentMapPlayerParams: {}
 }
 
 export default MapmakerDatastore;
