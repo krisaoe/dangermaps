@@ -133,20 +133,16 @@ var RootComponent = React.createClass({
         return (
             <div className="world">
                 <div className="flexy-workspace">
+                    {/*
                     <div>
                         <button onClick={this.closeMap}>Close Map</button>
                     </div>
+                    Why close a map? */}
                     <div>
                         Background Image
                         <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
                     </div>
-                    <ViewOptions
-                        useBackgroundImage={this.state.useBackgroundImage}
-                        toggleUseBackgroundImage={this.toggleUseBackgroundImage}
-                        adjustWallOpacity={this.adjustWallOpacity}
-                        showGridLines={this.state.showGridLines}
-                        toggleShowBorders={this.toggleShowBorders}
-                    />
+
                     <MapParameters
                         adjustMapDimensions={this.adjustMapDimensions}
                         defaultMapWidth={this.state.mapWidth}
@@ -163,10 +159,18 @@ var RootComponent = React.createClass({
                     />
                 </div>
                 <div className="flexy-workspace collapsed">
-
                 </div>
                 <div className="toolbar-column">
-                    <ToolMenu />
+                    <div className="fixed-container">
+                        <ToolMenu />
+                        <ViewOptions
+                            useBackgroundImage={this.state.useBackgroundImage}
+                            toggleUseBackgroundImage={this.toggleUseBackgroundImage}
+                            adjustWallOpacity={this.adjustWallOpacity}
+                            showGridLines={this.state.showGridLines}
+                            toggleShowBorders={this.toggleShowBorders}
+                        />
+                    </div>
                 </div>
             </div>
         )
