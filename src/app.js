@@ -1,9 +1,10 @@
 import React from 'react';
 import Firebase from 'firebase';
 import './style/interface.styl';
-import MenuBar from './menu-bar';
+import MapParameters from './map-parameters';
 import ToolMenu from './tool-menu';
 import Canvas from './canvas';
+import ViewOptions from './view-options';
 import MapOpener from './map-opener';
 import MapName from './map-name';
 import SaveMapButton from './save-map-button';
@@ -139,12 +140,14 @@ var RootComponent = React.createClass({
                         Background Image
                         <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
                     </div>
-                    <MenuBar
+                    <ViewOptions
                         useBackgroundImage={this.state.useBackgroundImage}
                         toggleUseBackgroundImage={this.toggleUseBackgroundImage}
                         adjustWallOpacity={this.adjustWallOpacity}
                         showGridLines={this.state.showGridLines}
                         toggleShowBorders={this.toggleShowBorders}
+                    />
+                    <MapParameters
                         adjustMapDimensions={this.adjustMapDimensions}
                         defaultMapWidth={this.state.mapWidth}
                         defaultMapHeight={this.state.mapHeight}
