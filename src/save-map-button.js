@@ -31,7 +31,7 @@ var SaveMapButton = React.createClass({
         var dirtyBadge = (this.state.isDirty) ? (<span style={style.badge}>!</span>) : null;
         return (
             <a style={style.btn} href="#" onClick={this.handleClick}>
-                Save Map
+                Save
                 {dirtyBadge}
             </a>
         );

@@ -9,6 +9,10 @@ var FirebaseService = function() {
         fb.update(newValues, callback);
     };
 
+    self.getCurrentMapJsonLink = function() {
+        return "https://dangerstudio.firebaseio.com/maps/" + MStore.get('currentMap').id + ".json";
+    };
+
     self.getAllMaps = function(callback) {
         var fb = new Firebase("https://dangerstudio.firebaseio.com/");
 
