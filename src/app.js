@@ -66,6 +66,7 @@ var RootComponent = React.createClass({
                 this.adjustMapDimensions(map.width, map.height);
                 this.refs.backgroundImageInput.getDOMNode().value = this.state.backgroundImage;
                 MStore.set('currentMapWalls', map.walls || []);
+                MStore.set('currentMapPlayerParams', map.player || {});
             }
 
         })
