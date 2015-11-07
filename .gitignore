@@ -2,3 +2,7 @@ node_modules
 .DS_Store
 .idea
 npm-debug.log
+
+dist/*.css
+dist/*.js
+dist/index.html
