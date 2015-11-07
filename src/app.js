@@ -6,6 +6,7 @@ import ToolMenu from './tool-menu';
 import Canvas from './canvas';
 import MapOpener from './map-opener';
 import MapName from './map-name';
+import SaveMapButton from './save-map-button';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 import FirebaseService from './services/firebase-service';
@@ -181,7 +182,7 @@ var RootComponent = React.createClass({
                         {this.renderName()}
                     </div>
                     <div className="ibm">
-                        <button onClick={this.saveMap}>Save Map</button>
+                        <SaveMapButton onSave={this.saveMap} />
                     </div>
                 </div>
                 <div className="topbar-right">

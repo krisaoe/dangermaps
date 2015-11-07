@@ -90,10 +90,11 @@ var MapOpener = React.createClass({
     render() {
         var createNewMapForm = (this.state.isCreatingNew)
             ? this.renderCreateNewForm()
-            : (<div><a href="#" onClick={this.handleToggleIsCreatingNew} >...or Create New Map</a></div>);
+            : (null);
 
         return (
             <div>
+                <button href="#" onClick={this.handleToggleIsCreatingNew} >New Map</button>
                 <select ref="mapSelectBox"  onChange={this.handleOpenMapSelectbox}>
                     <option value={""}>Open a map</option>
                     {this.renderMapOptions()}

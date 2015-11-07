@@ -52,8 +52,9 @@ var Canvas = React.createClass({
         for (var i=0; i<self.props.mapHeight; i++) {
             for (var ii=0; ii<self.props.mapLength; ii++) {
 
+                var walls = self.state.walls || [];
 
-                var isWall = self.state.walls.filter(function(wall,index) {
+                var isWall = walls.filter(function(wall,index) {
                     return (i == wall.y && ii == wall.x)
                 }).length > 0;
 
