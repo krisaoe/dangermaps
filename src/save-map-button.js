@@ -28,25 +28,15 @@ var SaveMapButton = React.createClass({
     },
 
     render() {
-        var dirtyBadge = (this.state.isDirty) ? (<span style={style.badge}>!</span>) : null;
+        var disabled = (this.state.isDirty) ? "" : "disabled";
         return (
-            <a style={style.btn} href="#" onClick={this.handleClick}>
-                Save
-                {dirtyBadge}
-            </a>
-        );
+            <button className="btn" disabled={disabled} onClick={this.handleClick}>Save</button>
+        )
     }
 });
 
 var style = {
     btn: {
-        display: 'inline-block',
-        padding: '0.4em 1em',
-        border: '1px solid #444',
-        borderRadius: 3,
-        textDecoration: 'none',
-        color: '#444',
-        position: 'relative'
     },
     badge: {
         position:'absolute',

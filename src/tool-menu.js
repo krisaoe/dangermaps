@@ -1,6 +1,5 @@
 import React from 'react';
 import Tool from './tool-option';
-import './style/toolmenu.styl';
 import MStore from './services/mapmaker-datastore';
 
 var toolGroups = [

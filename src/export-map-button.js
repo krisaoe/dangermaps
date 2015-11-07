@@ -9,7 +9,7 @@ var ExportMapButton = React.createClass({
 
     render() {
         return (
-            <button onClick={this.exportMap}>Export</button>
+            <button className="btn" onClick={this.exportMap}>Export</button>
         );
     }
 });

@@ -94,7 +94,7 @@ var MapOpener = React.createClass({
 
         return (
             <div>
-                <button href="#" onClick={this.handleToggleIsCreatingNew} >New Map</button>
+                <button className="btn" onClick={this.handleToggleIsCreatingNew} >New Map</button>
                 <select ref="mapSelectBox"  onChange={this.handleOpenMapSelectbox}>
                     <option value={""}>Open a map</option>
                     {this.renderMapOptions()}

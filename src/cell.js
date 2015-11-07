@@ -1,6 +1,7 @@
 import React from 'react';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
+import UniqueId from './services/unique-id';
 
 var Cell = React.createClass({
 
@@ -15,7 +16,8 @@ var Cell = React.createClass({
             //console.log('onDeac')
             this.props.onDeactivation(me);
         } else {
-            //console.log('onAct')
+
+            me.id = UniqueId('wall');
             this.props.onActivation(me);
         }
     },
