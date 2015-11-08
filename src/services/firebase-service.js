@@ -4,17 +4,29 @@ import MStore from './mapmaker-datastore';
 var FirebaseService = function() {
     var self = this;
 
+    //Check if in Dev environment
+    var FIREBASE_URL = /http:\/\/localhost:/.test(window.location.href) ? "https://dangerstudio.firebaseio.com" : "https://dangerstudio-prod.firebaseio.com"
+
+
+    self.createNewMap = function(mapModel) {
+        var fb = new Firebase(FIREBASE_URL+"/maps");
+        fb.child(mapModel.id).set(mapModel, function () {
+            MStore.set('currentMap', mapModel); //send local copy to the editor
+        });
+    }
+
+
     self.updateCurrentMap = function(newValues, callback) {
-        var fb = new Firebase("https://dangerstudio.firebaseio.com/maps/" + MStore.get('currentMap').id );
+        var fb = new Firebase(FIREBASE_URL+"/maps/" + MStore.get('currentMap').id );
         fb.update(newValues, callback);
     };
 
     self.getCurrentMapJsonLink = function() {
-        return "https://dangerstudio.firebaseio.com/maps/" + MStore.get('currentMap').id + ".json";
+        return FIREBASE_URL+"/maps/" + MStore.get('currentMap').id + ".json";
     };
 
     self.getAllMaps = function(callback) {
-        var fb = new Firebase("https://dangerstudio.firebaseio.com/");
+        var fb = new Firebase(FIREBASE_URL);
 
         fb.child("maps").once("value", function(data) {
             var dataArray = [];

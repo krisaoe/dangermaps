@@ -1,5 +1,5 @@
 import React from 'react';
-import Firebase from 'firebase';
+import FirebaseService from './services/firebase-service';
 import MStore from './services/mapmaker-datastore';
 import Map from './models/map';
 
@@ -44,18 +44,15 @@ var MapOpener = React.createClass({
         }
     },
 
-    handleCreateNewMap() {
+    handleCreateNewMap(e) {
+        e.preventDefault();
+
         var self = this;
         var mapName = self.refs.newMapName.getDOMNode().value;
         if (mapName.length > 0) {
-            var fb = new Firebase("https://dangerstudio.firebaseio.com/maps");
+            self.refs.newMapName.getDOMNode().value = ""; /* This thing would probably go away anyway */
             var newMap = new Map({name: mapName});
-
-            fb.child(newMap.id).set(newMap, function () {
-                self.refs.newMapName.getDOMNode().value = ""; /* This thing would probably go away anyway */
-                MStore.set('currentMap', newMap); //send local copy to the editor
-            });
-
+            FirebaseService.createNewMap(newMap)
         } else {
             console.log('cant be empty')
         }
