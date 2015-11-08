@@ -10,7 +10,7 @@ var Cell = React.createClass({
         var me = {
             x: this.props.x,
             y: this.props.y
-        }
+        };
 
         if (this.props.isWall) {
             //console.log('onDeac')
@@ -18,6 +18,7 @@ var Cell = React.createClass({
         } else {
 
             me.id = UniqueId('wall');
+            me.type = "wall";
             this.props.onActivation(me);
         }
     },
