@@ -34,6 +34,9 @@ var RootComponent = React.createClass({
             mapWidth: 0,//ObjectService.get().width,
             mapHeight: 0,//ObjectService.get().height,
 
+            mapOffsetX: 0,
+            mapOffsetY: 0,
+
             currentMap: null /* The map you are currently working on */
         }
     },
@@ -63,7 +66,7 @@ var RootComponent = React.createClass({
 
             if (map) {
                 //adjust current view with newly loaded Map's values
-                this.adjustMapDimensions(map.width, map.height);
+                this.adjustMapDimensions(map.width, map.height, map.offsetX, map.offsetY);
                 this.refs.backgroundImageInput.getDOMNode().value = this.state.backgroundImage;
                 MStore.set('currentMapWalls', map.walls || []);
                 MStore.set('currentMapPlayerParams', map.player || {});
@@ -76,6 +79,8 @@ var RootComponent = React.createClass({
         var newMapState = {
             width: parseInt(this.state.mapWidth),
             height: parseInt(this.state.mapHeight),
+            offsetX: parseInt(this.state.mapOffsetX),
+            offsetY: parseInt(this.state.mapOffsetY),
             backgroundImage: (this.state.backgroundImage),
             walls: MStore.get('currentMapWalls') || [],
             player: MStore.get('currentMapPlayerParams') || {}
@@ -94,10 +99,12 @@ var RootComponent = React.createClass({
         })
     },
 
-    adjustMapDimensions(width, height) {
+    adjustMapDimensions(width, height, mapOffsetX, mapOffsetY) {
         this.setState({
             mapWidth: width,
-            mapHeight: height
+            mapHeight: height,
+            mapOffsetX: mapOffsetX,
+            mapOffsetY: mapOffsetY
         })
     },
 
@@ -146,6 +153,8 @@ var RootComponent = React.createClass({
                             adjustMapDimensions={this.adjustMapDimensions}
                             defaultMapWidth={this.state.mapWidth}
                             defaultMapHeight={this.state.mapHeight}
+                            defaultMapOffsetX={this.state.mapOffsetX}
+                            defaultMapOffsetY={this.state.mapOffsetY}
                         />
                         <div>
                             Background Image
@@ -159,6 +168,8 @@ var RootComponent = React.createClass({
                             backgroundImage={this.state.backgroundImage}
                             mapLength={this.state.mapWidth}
                             mapHeight={this.state.mapHeight}
+                            mapOffsetX={this.state.mapOffsetX}
+                            mapOffsetY={this.state.mapOffsetY}
                         />
                     </div>
                     <div className="flexy-workspace collapsed">
