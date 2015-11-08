@@ -9,12 +9,12 @@ import ViewOptions from './view-options';
 import MapOpener from './map-opener';
 import MapName from './map-name';
 import SaveMapButton from './save-map-button';
+import DevEnvBar from './dev-env-bar';
 import ExportMapButton from './export-map-button';
 import ObjectService from './services/object-service';
 import MStore from './services/mapmaker-datastore';
 import FirebaseService from './services/firebase-service';
 
-window.DevMStore = MStore; /* JUST FOR DEV */
 
 var RootComponent = React.createClass({
 
@@ -136,50 +136,45 @@ var RootComponent = React.createClass({
     renderMapInterface() {
         return (
             <div className="world">
-                <div className="flexy-workspace">
-                    {/*
-                    <div>
-                        <button onClick={this.closeMap}>Close Map</button>
-                    </div>
-                    Why close a map? */}
-                        <h3>Player</h3>
-                        <PlayerParameters />
+                        <div className="flexy-workspace">
+                            <h3>Player</h3>
+                            <PlayerParameters />
 
-                    <h3>Map Size & Image</h3>
+                        <h3>Map Size & Image</h3>
 
-                    <MapParameters
-                        adjustMapDimensions={this.adjustMapDimensions}
-                        defaultMapWidth={this.state.mapWidth}
-                        defaultMapHeight={this.state.mapHeight}
-                    />
-                    <div>
-                        Background Image
-                        <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
-                    </div>
-                    <Canvas
-                        initialWalls={this.state.currentMap.walls}
-                        wallOpacity={this.state.wallOpacity}
-                        showGridLines={this.state.showGridLines}
-                        useBackgroundImage={this.state.useBackgroundImage}
-                        backgroundImage={this.state.backgroundImage}
-                        mapLength={this.state.mapWidth}
-                        mapHeight={this.state.mapHeight}
-                    />
-                </div>
-                <div className="flexy-workspace collapsed">
-                </div>
-                <div className="toolbar-column">
-                    <div className="fixed-container">
-                        <ToolMenu />
-                        <ViewOptions
-                            useBackgroundImage={this.state.useBackgroundImage}
-                            toggleUseBackgroundImage={this.toggleUseBackgroundImage}
-                            adjustWallOpacity={this.adjustWallOpacity}
+                        <MapParameters
+                            adjustMapDimensions={this.adjustMapDimensions}
+                            defaultMapWidth={this.state.mapWidth}
+                            defaultMapHeight={this.state.mapHeight}
+                        />
+                        <div>
+                            Background Image
+                            <input initialValue={this.state.backgroundImage} ref="backgroundImageInput" onChange={this.changeBackgroundImage} />
+                        </div>
+                        <Canvas
+                            initialWalls={this.state.currentMap.walls}
+                            wallOpacity={this.state.wallOpacity}
                             showGridLines={this.state.showGridLines}
-                            toggleShowBorders={this.toggleShowBorders}
+                            useBackgroundImage={this.state.useBackgroundImage}
+                            backgroundImage={this.state.backgroundImage}
+                            mapLength={this.state.mapWidth}
+                            mapHeight={this.state.mapHeight}
                         />
                     </div>
-                </div>
+                    <div className="flexy-workspace collapsed">
+                    </div>
+                    <div className="toolbar-column">
+                        <div className="fixed-container">
+                            <ToolMenu />
+                            <ViewOptions
+                                useBackgroundImage={this.state.useBackgroundImage}
+                                toggleUseBackgroundImage={this.toggleUseBackgroundImage}
+                                adjustWallOpacity={this.adjustWallOpacity}
+                                showGridLines={this.state.showGridLines}
+                                toggleShowBorders={this.toggleShowBorders}
+                            />
+                        </div>
+                    </div>
             </div>
         )
     },
@@ -216,6 +211,7 @@ var RootComponent = React.createClass({
 
             return (
                 <div>
+                    <DevEnvBar />
                     {this.renderTopBar()}
                     {mapInterface}
                 </div>

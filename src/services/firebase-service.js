@@ -1,11 +1,13 @@
 import Firebase from 'firebase';
 import MStore from './mapmaker-datastore';
+import ENV from '../env';
+
 
 var FirebaseService = function() {
     var self = this;
 
     //Check if in Dev environment
-    var FIREBASE_URL = /http:\/\/localhost:/.test(window.location.href) ? "https://dangerstudio.firebaseio.com" : "https://dangerstudio-prod.firebaseio.com"
+    var FIREBASE_URL = ENV.isDev ? "https://dangerstudio.firebaseio.com" : "https://dangerstudio-prod.firebaseio.com";
 
 
     self.createNewMap = function(mapModel) {
