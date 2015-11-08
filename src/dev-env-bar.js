@@ -20,7 +20,7 @@ var style = {
     color: '#8a6d3b',
     borderBottom: '1px solid #faebcc',
     padding: '0.5em',
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'center'
 }
 
