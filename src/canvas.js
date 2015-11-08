@@ -77,8 +77,8 @@ var Canvas = React.createClass({
             backgroundImage: (this.props.useBackgroundImage) ? "url("+backgroundImagePath+")" : "none",
             width: (this.props.mapLength * 16),
             height: (this.props.mapHeight * 16),
-            backgroundPositionX: (this.props.mapOffsetX * 16).toString() + "px",
-            backgroundPositionY: (this.props.mapOffsetY * 16).toString() + "px"
+            backgroundPositionX: (this.props.mapOffsetX * 16),
+            backgroundPositionY: (this.props.mapOffsetY * 16)
         };
 
         return (
